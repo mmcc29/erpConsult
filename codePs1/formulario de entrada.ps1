@@ -1,4 +1,4 @@
-. .\base.ps1 #carrega os comandos para a interface gráfica
+. .\base.ps1 #carrega os comandos para a interface grï¿½fica
 
 $data = @(
 [pscustomobject]@{NomeCod='Conta';TamanhoCod=9;TipoCod='Receita';PrefixCod='1'}
@@ -7,24 +7,24 @@ $data = @(
 )
 
 
-$botaoOk.Add_click({ #essa parte é executada ao clicar no botão ok
+$botaoOk.Add_click({ #essa parte ï¿½ executada ao clicar no botï¿½o ok
     if ("" -eq $textboxDescrConta.Text -or $textboxCodConta.Text.Length -ne $listboxTipoConta.SelectedItem.TamanhoCod){
-        [System.Windows.MessageBox]::Show('Preencha todos os campos com valores válidos.', 'Erro')
+        [System.Windows.MessageBox]::Show('Preencha todos os campos com valores vï¿½lidos.', 'Erro')
     }
     else{
         $cont=0
-        foreach ($linha in Get-Content .\tbSgConta.txt){ #verifica se já existe algum código de conta igual
+        foreach ($linha in Get-Content .\tbSgConta.txt){ #verifica se jï¿½ existe algum cï¿½digo de conta igual
             if(($linha -split " \| ")[1] -eq $textboxCodConta.text){
                 $cont++
                 break
             }
         }
         if($cont -ne 0){
-            [System.Windows.MessageBox]::Show('Conta já existente.')
+            [System.Windows.MessageBox]::Show('Conta jï¿½ existente.')
         }
         else{ #se estiver tudo correto
 
-            #preenche variáveis para adicionar no arquivo
+            #preenche variï¿½veis para adicionar no arquivo
             $sgconta=(Get-Content .\ixSgConta.txt)
             $cdConta=$textboxCodConta.Text
             $dsConta=$textboxDescrConta.Text
@@ -38,10 +38,10 @@ $botaoOk.Add_click({ #essa parte é executada ao clicar no botão ok
 
             Add-Content -Value "$sgconta | $cdConta | $dsConta | $stConta" -Path .\tbSgConta.txt
 
-            $ultimo=Get-Content .\ixSgConta.txt #variável recebe conteúdo do texto
-            [int]$ultimo=$ultimo #variável é convertida para int
-            $ultimo++ #e é incrementada
-            [string]$ultimo=([string]$ultimo).PadLeft(4,'0') #variável volta a ser string padronizada com zeros à esquerda
+            $ultimo=Get-Content .\ixSgConta.txt #variï¿½vel recebe conteï¿½do do texto
+            [int]$ultimo=$ultimo #variï¿½vel ï¿½ convertida para int
+            $ultimo++ #e ï¿½ incrementada
+            [string]$ultimo=([string]$ultimo).PadLeft(4,'0') #variï¿½vel volta a ser string padronizada com zeros ï¿½ esquerda
             Clear-Content -Path .\ixSgConta.txt 
             Add-Content -Value $ultimo -Path .\ixSgConta.txt
             $labelSgConta.Text = "sgConta: " + $ultimo + ":"
@@ -52,12 +52,12 @@ $botaoOk.Add_click({ #essa parte é executada ao clicar no botão ok
     }
 })
 
-$textboxCodConta.Add_TextChanged({ #evento acionado toda vez que a caixa de texto é modificada
+$textboxCodConta.Add_TextChanged({ #evento acionado toda vez que a caixa de texto ï¿½ modificada
 
-    $this.Text = $this.Text -replace '\D' #substitui qualquer item não decimal por vazio
+    $this.Text = $this.Text -replace '\D' #substitui qualquer item nï¿½o decimal por vazio
     $this.Select($this.Text.Length, 0); #coloca o cursor de volta no final do texto
     
-    if($this.Text.Length -ne 0){ #se a caixa de texto não estiver vazia
+    if($this.Text.Length -ne 0){ #se a caixa de texto nï¿½o estiver vazia
             $this.Text=$this.Text.Remove(0,1).Insert(0,$listboxTipoConta.SelectedItem.PrefixCod) #troca o primeiro caracter
     }
     else{
@@ -67,7 +67,7 @@ $textboxCodConta.Add_TextChanged({ #evento acionado toda vez que a caixa de text
 
 
 
-$listboxTipoConta.add_SelectedIndexChanged({ #ativado ao mudar a seleção da listbox
+$listboxTipoConta.add_SelectedIndexChanged({ #ativado ao mudar a seleï¿½ï¿½o da listbox
 
     #ativa os elementos de entrada
     $labelSgConta.Enabled =        $true
@@ -77,7 +77,7 @@ $listboxTipoConta.add_SelectedIndexChanged({ #ativado ao mudar a seleção da list
     $textboxDescrConta.Enabled =   $true
     $groupboxStatusConta.Enabled = $true
 
-    $textboxCodConta.MaxLength = $listboxTipoConta.SelectedItem.TamanhoCod #define a capacidade máxima de caracteres da caixa de texto
+    $textboxCodConta.MaxLength = $listboxTipoConta.SelectedItem.TamanhoCod #define a capacidade mï¿½xima de caracteres da caixa de texto
      
     if($textboxCodConta.Text.Length -eq 0){ #imossibilitar caixa de texto vazia
         $textboxCodConta.Text = 1
@@ -89,7 +89,7 @@ $listboxTipoConta.add_SelectedIndexChanged({ #ativado ao mudar a seleção da list
 
     
     $digitos = $listboxTipoConta.SelectedItem.TamanhoCod
-    $labelCodConta.Text = "Digite o código da conta com $digitos dígitos :"
+    $labelCodConta.Text = "Digite o cï¿½digo da conta com $digitos dï¿½gitos :"
 })
 
 
