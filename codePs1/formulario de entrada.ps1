@@ -6,6 +6,7 @@ $data = @(
 [pscustomobject]@{NomeCod='CentroCusto';TamanhoCod=7}
 )
 
+#comentário
 
 $botaoOk.Add_click({ #essa parte é executada ao clicar no botão ok
     if ("" -eq $textboxDescrConta.Text -or $textboxCodConta.Text.Length -ne $listboxTipoConta.SelectedItem.TamanhoCod){
