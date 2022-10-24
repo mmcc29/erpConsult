@@ -1,3 +1,8 @@
+$nomePath = (split-path (Get-Item $PSCommandPath).Fullname)
+Set-Location $nomePath
+$nomeScript = (Get-Item $PSCommandPath).Name
+
+
 . .\base.ps1 #carrega os comandos para a interface grafica
 
 $data = @(
