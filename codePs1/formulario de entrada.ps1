@@ -1,3 +1,9 @@
+#
+# Nome: formulario de entradas
+# Versao 00000: Cadastro de contas 
+#
+
+
 $nomePath = (split-path (Get-Item $PSCommandPath).Fullname)
 Set-Location $nomePath
 $pathData = $nomePath.Substring(0, $nomePath.lastIndexOf('\')) + "\Data"
