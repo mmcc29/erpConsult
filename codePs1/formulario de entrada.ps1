@@ -1,6 +1,7 @@
 $nomePath = (split-path (Get-Item $PSCommandPath).Fullname)
 Set-Location $nomePath
-$nomeScript = (Get-Item $PSCommandPath).Name
+$pathData = $nomePath.Substring(0, $nomePath.lastIndexOf('\')) + "\Data"
+
 
 
 . .\base.ps1 #carrega os comandos para a interface grafica
@@ -19,7 +20,7 @@ $botaoOk.Add_click({ #essa parte eh executada ao clicar no botao ok
     }
     else{
         $cont=0
-        foreach ($linha in Get-Content .\tbSgConta.txt){ #verifica se ja existe algum codigo de conta igual
+        foreach ($linha in Get-Content -path ($pathdata +"\tbSgConta.txt")){ #verifica se ja existe algum codigo de conta igual
             if(($linha -split " \| ")[1] -eq $textboxCodConta.text){
                 $cont++
                 break
@@ -31,7 +32,7 @@ $botaoOk.Add_click({ #essa parte eh executada ao clicar no botao ok
         else{ #se estiver tudo correto
 
             #preenche variaveis para adicionar no arquivo
-            $sgconta=(Get-Content .\ixSgConta.txt)
+            $sgconta=(Get-Content -path ($pathdata +"\ixSgConta.txt"))
             $cdConta=$textboxCodConta.Text
             $dsConta=$textboxDescrConta.Text
             
@@ -42,14 +43,14 @@ $botaoOk.Add_click({ #essa parte eh executada ao clicar no botao ok
                 [string]$stConta=02
             }
 
-            Add-Content -Value "$sgconta | $cdConta | $dsConta | $stConta" -Path .\tbSgConta.txt
+            Add-Content -Value "$sgconta | $cdConta | $dsConta | $stConta" -Path ($pathdata +"\tbSgConta.txt")
 
-            $ultimo=Get-Content .\ixSgConta.txt #variavel recebe conteudo do texto
+            $ultimo=(Get-Content -path ($pathdata +"\ixSgConta.txt")) #variavel recebe conteudo do texto
             [int]$ultimo=$ultimo #variavel eh convertida para int
             $ultimo++ #e eh incrementada
             [string]$ultimo=([string]$ultimo).PadLeft(4,'0') #variavel volta a ser string padronizada com zeros a esquerda
-            Clear-Content -Path .\ixSgConta.txt 
-            Add-Content -Value $ultimo -Path .\ixSgConta.txt
+            Clear-Content -path ($pathdata +"\ixSgConta.txt")
+            Add-Content -Value $ultimo -Path ($pathdata +"\ixSgConta.txt")
             $labelSgConta.Text = "sgConta: " + $ultimo + ":"
 
             
@@ -112,5 +113,5 @@ foreach ($item in $data) {
 $listboxTipoConta.DisplayMember = "TipoCod"
 
 
-$labelSgConta.Text = "sgConta: " + (Get-Content .\ixSgConta.txt) + ":" #preenche o label
+$labelSgConta.Text = "sgConta: " + (Get-Content -path ($pathdata +"\ixSgConta.txt")) + ":" #preenche o label
 [void]$formContabil.ShowDialog()
