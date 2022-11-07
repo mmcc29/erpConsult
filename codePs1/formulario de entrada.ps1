@@ -3,6 +3,8 @@
 # Versao 00000: Cadastro de contas 
 #
 
+# teste de fork
+
 
 $nomePath = (split-path (Get-Item $PSCommandPath).Fullname)
 Set-Location $nomePath
