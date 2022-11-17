@@ -58,7 +58,7 @@ $botaoCancelar.Add_Click({$formContabil.Tag = $formContabil.close()})
 $formContabil.Controls.Add($botaoCancelar)
 
 #botao ok
-$botaoOk = New-Object System.Windows.Forms.Button #botão ok
+$botaoOk = New-Object System.Windows.Forms.Button #botï¿½o ok
 $botaoOk.Location = New-Object System.Drawing.Size(20,390)
 $botaoOk.Size = New-Object System.Drawing.Size(100,20)
 $botaoOk.Text = "Ok"
